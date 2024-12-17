@@ -4,8 +4,8 @@ import 'package:decibel_monitor/src/features/permission/controllers/permission_c
 import 'package:flutter/material.dart';
 
 Future<void> main() async {
-  dependencyInjector();
   WidgetsFlutterBinding.ensureInitialized();
+  dependencyInjector();
   await locator<PermissionController>().initMicrophonePermission();
   runApp(const MyApp());
 }

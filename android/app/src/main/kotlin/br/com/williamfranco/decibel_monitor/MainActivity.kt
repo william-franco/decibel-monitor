@@ -111,13 +111,20 @@ class MainActivity : FlutterActivity() {
                 val read = audioRecord?.read(buffer, 0, buffer.size) ?: 0
                 if (read > 0) {
                     val rms = buffer.take(read).map { it * it }.average().let { Math.sqrt(it) }
-                    val decibels = 20 * Math.log10(rms / Short.MAX_VALUE)
+                    
+                    val decibels = if (rms > 0.0) {
+                        20 * Math.log10(rms / Short.MAX_VALUE)
+                    } else {
+                        0.0
+                    }
+
+                    val safeDecibels = if (decibels.isFinite()) decibels else 0.0
 
                     handler.post {
                         MethodChannel(
                             flutterEngine?.dartExecutor?.binaryMessenger!!,
                             CHANNEL
-                        ).invokeMethod("updateDecibel", decibels)
+                        ).invokeMethod("updateDecibel", safeDecibels)
                     }
                 }
 

@@ -1,7 +1,9 @@
 import 'package:decibel_monitor/src/common/dependency_injectors/dependency_injector.dart';
+import 'package:decibel_monitor/src/features/decibel/routes/decibel_routes.dart';
 import 'package:decibel_monitor/src/features/permission/controllers/permission_controller.dart';
 import 'package:decibel_monitor/src/features/permission/models/permission_model.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class PermissionView extends StatefulWidget {
   const PermissionView({super.key});
@@ -18,16 +20,13 @@ class _PermissionViewState extends State<PermissionView> {
     super.initState();
     permissionController = locator<PermissionController>();
     WidgetsBinding.instance.addPostFrameCallback((duration) {
-      _handlePermissionState();
+      _checkPermissionState();
     });
   }
 
-  void _handlePermissionState() {
+  void _checkPermissionState() {
     if (permissionController.value.isGranted) {
-      // Navigator.pushReplacement(
-      //   context,
-      //   MaterialPageRoute(builder: (context) => const AnotherView()),
-      // );
+      context.go(DecibelRoutes.decibel);
     }
   }
 
