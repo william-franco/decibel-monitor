@@ -1,12 +1,13 @@
+import 'package:decibel_monitor/src/features/permission/routes/permission_routes.dart';
 import 'package:go_router/go_router.dart';
 
 class Routes {
   static final GoRouter routes = GoRouter(
     debugLogDiagnostics: true,
-    initialLocation: LauncherRoutes.apps,
+    initialLocation: PermissionRoutes.permisson,
     routes: [
-      ...LauncherRoutes.routes,
-      ...SettingRoutes.routes,
+      ...PermissionRoutes.routes,
+      // ...SettingRoutes.routes,
     ],
   );
 }
