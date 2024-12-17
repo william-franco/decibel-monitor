@@ -1,8 +1,10 @@
 import 'package:decibel_monitor/src/common/dependency_injectors/dependency_injector.dart';
 import 'package:decibel_monitor/src/features/decibel/controllers/decibel_controller.dart';
 import 'package:decibel_monitor/src/features/decibel/models/decibel_model.dart';
+import 'package:decibel_monitor/src/features/settings/routes/setting_routes.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class DecibelView extends StatefulWidget {
   const DecibelView({super.key});
@@ -33,6 +35,14 @@ class _DecibelViewState extends State<DecibelView> {
       appBar: AppBar(
         centerTitle: false,
         title: const Text('Decibel Monitor'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings_outlined),
+            onPressed: () {
+              context.push(SettingRoutes.setting);
+            },
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
