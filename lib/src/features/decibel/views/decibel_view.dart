@@ -50,9 +50,9 @@ class _DecibelViewState extends State<DecibelView> {
           children: [
             ValueListenableBuilder<DecibelModel>(
               valueListenable: decibelController,
-              builder: (context, model, child) {
+              builder: (context, decibelModel, child) {
                 return Text(
-                  '${model.currentValue.toStringAsFixed(2)} dB',
+                  '${decibelModel.currentValue.toStringAsFixed(2)} dB',
                   style: const TextStyle(fontSize: 32),
                 );
               },
@@ -61,9 +61,9 @@ class _DecibelViewState extends State<DecibelView> {
             Expanded(
               child: ValueListenableBuilder<DecibelModel>(
                 valueListenable: decibelController,
-                builder: (context, model, child) {
+                builder: (context, decibelModel, child) {
                   final recentHistory =
-                      _getRecentHistory(model.history, maxPoints: 20);
+                      _getRecentHistory(decibelModel.history, maxPoints: 20);
                   return LineChart(
                     LineChartData(
                       gridData: const FlGridData(show: true),

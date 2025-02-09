@@ -26,7 +26,7 @@ class _SettingViewState extends State<SettingView> {
       applicationIcon: const FlutterLogo(),
       applicationName: 'Decibel Monitor',
       applicationVersion: 'Version 1.0.0',
-      applicationLegalese: '\u{a9} 2024 William Franco',
+      applicationLegalese: '\u{a9} 2025 William Franco',
     );
   }
 
