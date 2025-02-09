@@ -40,8 +40,8 @@ class _PermissionViewState extends State<PermissionView> {
       body: Center(
         child: ValueListenableBuilder<PermissionModel>(
           valueListenable: permissionController,
-          builder: (context, model, child) {
-            if (model.isGranted) {
+          builder: (context, permissionModel, child) {
+            if (permissionModel.isGranted) {
               return Text(
                 'Permission granted. Navigating...',
                 style: Theme.of(context).textTheme.headlineMedium,
