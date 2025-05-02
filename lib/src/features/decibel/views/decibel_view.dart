@@ -1,6 +1,5 @@
 import 'package:decibel_monitor/src/common/dependency_injectors/dependency_injector.dart';
 import 'package:decibel_monitor/src/features/decibel/controllers/decibel_controller.dart';
-import 'package:decibel_monitor/src/features/decibel/models/decibel_model.dart';
 import 'package:decibel_monitor/src/features/settings/routes/setting_routes.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -48,22 +47,24 @@ class _DecibelViewState extends State<DecibelView> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            ValueListenableBuilder<DecibelModel>(
-              valueListenable: decibelController,
-              builder: (context, decibelModel, child) {
+            ListenableBuilder(
+              listenable: decibelController,
+              builder: (context, child) {
                 return Text(
-                  '${decibelModel.currentValue.toStringAsFixed(2)} dB',
+                  '${decibelController.decibelModel.currentValue.toStringAsFixed(2)} dB',
                   style: const TextStyle(fontSize: 32),
                 );
               },
             ),
             const SizedBox(height: 16),
             Expanded(
-              child: ValueListenableBuilder<DecibelModel>(
-                valueListenable: decibelController,
-                builder: (context, decibelModel, child) {
-                  final recentHistory =
-                      _getRecentHistory(decibelModel.history, maxPoints: 20);
+              child: ListenableBuilder(
+                listenable: decibelController,
+                builder: (context, child) {
+                  final recentHistory = _getRecentHistory(
+                    decibelController.decibelModel.history,
+                    maxPoints: 20,
+                  );
                   return LineChart(
                     LineChartData(
                       gridData: const FlGridData(show: true),
@@ -80,12 +81,16 @@ class _DecibelViewState extends State<DecibelView> {
                       ],
                       minX: 0,
                       maxX: recentHistory.length.toDouble(),
-                      minY: recentHistory.isNotEmpty
-                          ? recentHistory.reduce((a, b) => a < b ? a : b) - 10
-                          : 0,
-                      maxY: recentHistory.isNotEmpty
-                          ? recentHistory.reduce((a, b) => a > b ? a : b) + 10
-                          : 50,
+                      minY:
+                          recentHistory.isNotEmpty
+                              ? recentHistory.reduce((a, b) => a < b ? a : b) -
+                                  10
+                              : 0,
+                      maxY:
+                          recentHistory.isNotEmpty
+                              ? recentHistory.reduce((a, b) => a > b ? a : b) +
+                                  10
+                              : 50,
                     ),
                   );
                 },

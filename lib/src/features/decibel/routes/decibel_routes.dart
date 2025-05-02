@@ -1,16 +1,15 @@
 import 'package:decibel_monitor/src/features/decibel/views/decibel_view.dart';
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class DecibelRoutes {
-  static const String decibel = '/decibel';
+  static String get decibel => '/decibel';
 
-  static final List<GoRoute> routes = [
+  final routes = [
     GoRoute(
       path: decibel,
-      pageBuilder: (context, state) => const MaterialPage(
-        child: DecibelView(),
-      ),
+      builder: (context, state) {
+        return const DecibelView();
+      },
     ),
   ];
 }

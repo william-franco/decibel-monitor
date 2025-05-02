@@ -1,7 +1,6 @@
 import 'package:decibel_monitor/src/common/dependency_injectors/dependency_injector.dart';
 import 'package:decibel_monitor/src/features/decibel/routes/decibel_routes.dart';
 import 'package:decibel_monitor/src/features/permission/controllers/permission_controller.dart';
-import 'package:decibel_monitor/src/features/permission/models/permission_model.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -25,7 +24,7 @@ class _PermissionViewState extends State<PermissionView> {
   }
 
   void _checkPermissionState() {
-    if (permissionController.value.isGranted) {
+    if (permissionController.permissionModel.isGranted) {
       context.go(DecibelRoutes.decibel);
     }
   }
@@ -33,15 +32,12 @@ class _PermissionViewState extends State<PermissionView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: false,
-        title: const Text('Permission Check'),
-      ),
+      appBar: AppBar(centerTitle: false, title: const Text('Permission Check')),
       body: Center(
-        child: ValueListenableBuilder<PermissionModel>(
-          valueListenable: permissionController,
-          builder: (context, permissionModel, child) {
-            if (permissionModel.isGranted) {
+        child: ListenableBuilder(
+          listenable: permissionController,
+          builder: (context, child) {
+            if (permissionController.permissionModel.isGranted) {
               return Text(
                 'Permission granted. Navigating...',
                 style: Theme.of(context).textTheme.headlineMedium,

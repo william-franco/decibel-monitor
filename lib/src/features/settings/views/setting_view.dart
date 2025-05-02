@@ -1,6 +1,5 @@
 import 'package:decibel_monitor/src/common/dependency_injectors/dependency_injector.dart';
 import 'package:decibel_monitor/src/features/settings/controllers/setting_controller.dart';
-import 'package:decibel_monitor/src/features/settings/models/setting_model.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -49,11 +48,11 @@ class _SettingViewState extends State<SettingView> {
             ListTile(
               leading: const Icon(Icons.brightness_6_outlined),
               title: const Text('Dark theme'),
-              trailing: ValueListenableBuilder<SettingModel>(
-                valueListenable: settingController,
-                builder: (context, value, widget) {
+              trailing: ListenableBuilder(
+                listenable: settingController,
+                builder: (context, child) {
                   return Switch(
-                    value: value.isDarkTheme,
+                    value: settingController.settingModel.isDarkTheme,
                     onChanged: (bool isDarkTheme) {
                       settingController.changeTheme(isDarkTheme: isDarkTheme);
                     },
