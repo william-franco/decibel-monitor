@@ -1,4 +1,3 @@
-import 'package:decibel_monitor/src/common/dependency_injectors/dependency_injector.dart';
 import 'package:decibel_monitor/src/features/decibel/controllers/decibel_controller.dart';
 import 'package:decibel_monitor/src/features/settings/routes/setting_routes.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -6,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class DecibelView extends StatefulWidget {
-  const DecibelView({super.key});
+  final DecibelController decibelController;
+
+  const DecibelView({super.key, required this.decibelController});
 
   @override
   State<DecibelView> createState() => _DecibelViewState();
@@ -18,7 +19,7 @@ class _DecibelViewState extends State<DecibelView> {
   @override
   void initState() {
     super.initState();
-    decibelController = locator<DecibelController>();
+    decibelController = widget.decibelController;
     decibelController.startListening();
   }
 
@@ -81,16 +82,12 @@ class _DecibelViewState extends State<DecibelView> {
                       ],
                       minX: 0,
                       maxX: recentHistory.length.toDouble(),
-                      minY:
-                          recentHistory.isNotEmpty
-                              ? recentHistory.reduce((a, b) => a < b ? a : b) -
-                                  10
-                              : 0,
-                      maxY:
-                          recentHistory.isNotEmpty
-                              ? recentHistory.reduce((a, b) => a > b ? a : b) +
-                                  10
-                              : 50,
+                      minY: recentHistory.isNotEmpty
+                          ? recentHistory.reduce((a, b) => a < b ? a : b) - 10
+                          : 0,
+                      maxY: recentHistory.isNotEmpty
+                          ? recentHistory.reduce((a, b) => a > b ? a : b) + 10
+                          : 50,
                     ),
                   );
                 },
