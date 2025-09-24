@@ -1,20 +1,20 @@
 import 'package:decibel_monitor/src/features/decibel/models/decibel_model.dart';
 import 'package:decibel_monitor/src/features/decibel/repositories/decibel_repository.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 
-typedef _Controller = ChangeNotifier;
+typedef _ViewModel = ChangeNotifier;
 
-abstract interface class DecibelController extends _Controller {
+abstract interface class DecibelViewModel extends _ViewModel {
   DecibelModel get decibelModel;
 
   Future<void> startListening();
   Future<void> stopListening();
 }
 
-class DecibelControllerImpl extends _Controller implements DecibelController {
+class DecibelViewModelImpl extends _ViewModel implements DecibelViewModel {
   final DecibelRepository decibelRepository;
 
-  DecibelControllerImpl({required this.decibelRepository});
+  DecibelViewModelImpl({required this.decibelRepository});
 
   DecibelModel _decibelModel = DecibelModel();
 

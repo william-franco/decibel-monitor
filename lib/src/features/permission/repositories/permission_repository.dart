@@ -1,4 +1,4 @@
-import 'package:decibel_monitor/src/common/constants/constants.dart';
+import 'package:decibel_monitor/src/common/constants/value_constant.dart';
 import 'package:flutter/services.dart';
 
 abstract interface class PermissionRepository {
@@ -6,13 +6,14 @@ abstract interface class PermissionRepository {
 }
 
 class PermissionRepositoryImpl implements PermissionRepository {
-  static const MethodChannel _channel = MethodChannel(Constants.pathChannel);
+  static final _channel = MethodChannel(ValueConstant.pathChannel);
 
   @override
   Future<bool> checkAndRequestPermission() async {
     try {
-      final bool isGranted =
-          await _channel.invokeMethod('checkAndRequestPermission');
+      final bool isGranted = await _channel.invokeMethod(
+        'checkAndRequestPermission',
+      );
       return isGranted;
     } on PlatformException catch (error) {
       // return false;

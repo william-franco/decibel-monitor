@@ -1,31 +1,28 @@
-import 'package:decibel_monitor/src/features/decibel/controllers/decibel_controller.dart';
+import 'package:decibel_monitor/src/features/decibel/view_models/decibel_view_model.dart';
 import 'package:decibel_monitor/src/features/settings/routes/setting_routes.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class DecibelView extends StatefulWidget {
-  final DecibelController decibelController;
+  final DecibelViewModel decibelViewModel;
 
-  const DecibelView({super.key, required this.decibelController});
+  const DecibelView({super.key, required this.decibelViewModel});
 
   @override
   State<DecibelView> createState() => _DecibelViewState();
 }
 
 class _DecibelViewState extends State<DecibelView> {
-  late final DecibelController decibelController;
-
   @override
   void initState() {
     super.initState();
-    decibelController = widget.decibelController;
-    decibelController.startListening();
+    widget.decibelViewModel.startListening();
   }
 
   @override
   void dispose() {
-    decibelController.stopListening();
+    widget.decibelViewModel.stopListening();
     super.dispose();
   }
 
@@ -49,10 +46,10 @@ class _DecibelViewState extends State<DecibelView> {
         child: Column(
           children: [
             ListenableBuilder(
-              listenable: decibelController,
+              listenable: widget.decibelViewModel,
               builder: (context, child) {
                 return Text(
-                  '${decibelController.decibelModel.currentValue.toStringAsFixed(2)} dB',
+                  '${widget.decibelViewModel.decibelModel.currentValue.toStringAsFixed(2)} dB',
                   style: const TextStyle(fontSize: 32),
                 );
               },
@@ -60,10 +57,10 @@ class _DecibelViewState extends State<DecibelView> {
             const SizedBox(height: 16),
             Expanded(
               child: ListenableBuilder(
-                listenable: decibelController,
+                listenable: widget.decibelViewModel,
                 builder: (context, child) {
                   final recentHistory = _getRecentHistory(
-                    decibelController.decibelModel.history,
+                    widget.decibelViewModel.decibelModel.history,
                     maxPoints: 20,
                   );
                   return LineChart(

@@ -1,5 +1,5 @@
 import 'package:decibel_monitor/src/common/dependency_injectors/dependency_injector.dart';
-import 'package:decibel_monitor/src/features/decibel/controllers/decibel_controller.dart';
+import 'package:decibel_monitor/src/features/decibel/view_models/decibel_view_model.dart';
 import 'package:decibel_monitor/src/features/decibel/views/decibel_view.dart';
 import 'package:go_router/go_router.dart';
 
@@ -12,7 +12,7 @@ class DecibelRoutes {
     GoRoute(
       path: decibel,
       builder: (context, state) {
-        return DecibelView(decibelController: locator<DecibelController>());
+        return DecibelView(decibelViewModel: locator<DecibelViewModel>());
       },
     ),
   ];

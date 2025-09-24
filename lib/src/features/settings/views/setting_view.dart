@@ -1,11 +1,11 @@
-import 'package:decibel_monitor/src/features/settings/controllers/setting_controller.dart';
+import 'package:decibel_monitor/src/features/settings/view_models/setting_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class SettingView extends StatelessWidget {
-  final SettingController settingController;
+  final SettingViewModel settingViewModel;
 
-  const SettingView({super.key, required this.settingController});
+  const SettingView({super.key, required this.settingViewModel});
 
   void _showAboutDialog(BuildContext context) {
     showAboutDialog(
@@ -37,12 +37,12 @@ class SettingView extends StatelessWidget {
               leading: const Icon(Icons.brightness_6_outlined),
               title: const Text('Dark theme'),
               trailing: ListenableBuilder(
-                listenable: settingController,
+                listenable: settingViewModel,
                 builder: (context, child) {
                   return Switch(
-                    value: settingController.settingModel.isDarkTheme,
+                    value: settingViewModel.settingModel.isDarkTheme,
                     onChanged: (bool isDarkTheme) {
-                      settingController.changeTheme(isDarkTheme: isDarkTheme);
+                      settingViewModel.changeTheme(isDarkTheme: isDarkTheme);
                     },
                   );
                 },
