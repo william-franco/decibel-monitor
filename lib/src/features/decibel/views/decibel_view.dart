@@ -17,13 +17,19 @@ class _DecibelViewState extends State<DecibelView> {
   @override
   void initState() {
     super.initState();
-    widget.decibelViewModel.startListening();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await _startListening();
+    });
   }
 
   @override
   void dispose() {
     widget.decibelViewModel.stopListening();
     super.dispose();
+  }
+
+  Future<void> _startListening() async {
+    await widget.decibelViewModel.startListening();
   }
 
   @override
