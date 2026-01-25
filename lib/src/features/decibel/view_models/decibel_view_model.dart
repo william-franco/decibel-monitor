@@ -24,8 +24,8 @@ class DecibelViewModelImpl extends _ViewModel implements DecibelViewModel {
   @override
   Future<void> startListening() async {
     try {
-      decibelRepository.setUpdateHandler((newValue) {
-        _decibelModel = _decibelModel.addToHistory(newValue);
+      decibelRepository.setUpdateHandler((newState) {
+        _decibelModel = _decibelModel.addToHistory(newState);
         notifyListeners();
       });
       await decibelRepository.startListening();

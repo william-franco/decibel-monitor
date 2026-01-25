@@ -32,9 +32,9 @@ class DecibelRepositoryImpl implements DecibelRepository {
   void setUpdateHandler(Function(double) callback) {
     _channel.setMethodCallHandler((call) async {
       if (call.method == 'updateDecibel') {
-        final double? newValue = call.arguments;
-        if (newValue != null) {
-          callback(newValue);
+        final double? newState = call.arguments;
+        if (newState != null) {
+          callback(newState);
         }
       }
     });
