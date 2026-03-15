@@ -1,3 +1,5 @@
+import 'package:decibel_monitor/src/common/state_management/state_management.dart';
+import 'package:decibel_monitor/src/features/decibel/models/decibel_model.dart';
 import 'package:decibel_monitor/src/features/decibel/view_models/decibel_view_model.dart';
 import 'package:decibel_monitor/src/features/settings/routes/setting_routes.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -51,22 +53,22 @@ class _DecibelViewState extends State<DecibelView> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            ListenableBuilder(
-              listenable: widget.decibelViewModel,
-              builder: (context, child) {
+            StateBuilderWidget<DecibelViewModel, DecibelModel>(
+              viewModel: widget.decibelViewModel,
+              builder: (context, decibelModel) {
                 return Text(
-                  '${widget.decibelViewModel.decibelModel.currentValue.toStringAsFixed(2)} dB',
+                  '${decibelModel.currentValue.toStringAsFixed(2)} dB',
                   style: const TextStyle(fontSize: 32),
                 );
               },
             ),
             const SizedBox(height: 16),
             Expanded(
-              child: ListenableBuilder(
-                listenable: widget.decibelViewModel,
-                builder: (context, child) {
+              child: StateBuilderWidget<DecibelViewModel, DecibelModel>(
+                viewModel: widget.decibelViewModel,
+                builder: (context, decibelModel) {
                   final recentHistory = _getRecentHistory(
-                    widget.decibelViewModel.decibelModel.history,
+                    decibelModel.history,
                     maxPoints: 20,
                   );
                   return LineChart(

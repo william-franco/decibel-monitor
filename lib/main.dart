@@ -1,5 +1,7 @@
 import 'package:decibel_monitor/src/common/dependency_injectors/dependency_injector.dart';
 import 'package:decibel_monitor/src/common/routes/routes.dart';
+import 'package:decibel_monitor/src/common/state_management/state_management.dart';
+import 'package:decibel_monitor/src/features/settings/models/setting_model.dart';
 import 'package:decibel_monitor/src/features/settings/view_models/setting_view_model.dart';
 import 'package:flutter/material.dart';
 
@@ -26,15 +28,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ListenableBuilder(
-      listenable: settingViewModel,
-      builder: (context, child) {
+    return StateBuilderWidget<SettingViewModel, SettingModel>(
+      viewModel: settingViewModel,
+      builder: (context, settingModel) {
         return MaterialApp.router(
           title: 'Decibel Monitor',
           debugShowCheckedModeBanner: false,
           theme: ThemeData.light(useMaterial3: true),
           darkTheme: ThemeData.dark(useMaterial3: true),
-          themeMode: settingViewModel.settingModel.isDarkTheme
+          themeMode: settingModel.isDarkTheme
               ? ThemeMode.dark
               : ThemeMode.light,
           routerConfig: appRoutes.routes,

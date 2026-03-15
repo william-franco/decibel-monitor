@@ -1,11 +1,12 @@
+import 'package:decibel_monitor/src/common/state_management/state_management.dart';
 import 'package:decibel_monitor/src/features/decibel/models/decibel_model.dart';
 import 'package:decibel_monitor/src/features/decibel/repositories/decibel_repository.dart';
 import 'package:flutter/foundation.dart';
 
-typedef _ViewModel = ChangeNotifier;
+typedef _ViewModel = StateManagement<DecibelModel>;
 
 abstract interface class DecibelViewModel extends _ViewModel {
-  DecibelModel get decibelModel;
+  DecibelViewModel(super.initialState);
 
   Future<void> startListening();
   Future<void> stopListening();
@@ -14,19 +15,15 @@ abstract interface class DecibelViewModel extends _ViewModel {
 class DecibelViewModelImpl extends _ViewModel implements DecibelViewModel {
   final DecibelRepository decibelRepository;
 
-  DecibelViewModelImpl({required this.decibelRepository});
-
-  DecibelModel _decibelModel = DecibelModel();
-
-  @override
-  DecibelModel get decibelModel => _decibelModel;
+  DecibelViewModelImpl({required this.decibelRepository})
+    : super(DecibelModel());
 
   @override
   Future<void> startListening() async {
     try {
       decibelRepository.setUpdateHandler((newState) {
-        _decibelModel = _decibelModel.addToHistory(newState);
-        notifyListeners();
+        final model = state.addToHistory(newState);
+        _emit(model);
       });
       await decibelRepository.startListening();
     } catch (error) {
@@ -41,5 +38,10 @@ class DecibelViewModelImpl extends _ViewModel implements DecibelViewModel {
     } catch (error) {
       debugPrint('$error');
     }
+  }
+
+  void _emit(DecibelModel newState) {
+    emitState(newState);
+    debugPrint('DecibelViewModel: ${state.currentValue}');
   }
 }
