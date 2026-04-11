@@ -100,7 +100,10 @@ void main() {
         ).thenThrow(Exception('SettingRepository: Storage failure'));
 
         // act & assert
-        expect(() => viewModel.getTheme(), throwsA(isA<Exception>()));
+        await expectLater(
+          viewModel.getTheme(),
+          throwsA(isA<Exception>()),
+        );
       });
     });
 
@@ -214,8 +217,8 @@ void main() {
           viewModel.addListener(() => emittedStates.add(viewModel.state));
 
           // act & assert
-          expect(
-            () => viewModel.changeTheme(isDarkTheme: true),
+          await expectLater(
+            viewModel.changeTheme(isDarkTheme: true),
             throwsA(isA<Exception>()),
           );
           // listener was never called because emitState was not reached

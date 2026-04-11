@@ -6,8 +6,6 @@ import 'package:flutter/foundation.dart';
 typedef _ViewModel = StateManagement<PermissionModel>;
 
 abstract interface class PermissionViewModel extends _ViewModel {
-  PermissionViewModel(super.initialValue);
-
   Future<void> initMicrophonePermission();
 }
 
@@ -15,8 +13,10 @@ class PermissionViewModelImpl extends _ViewModel
     implements PermissionViewModel {
   final PermissionRepository permissionRepository;
 
-  PermissionViewModelImpl({required this.permissionRepository})
-    : super(PermissionModel());
+  PermissionViewModelImpl({required this.permissionRepository});
+
+  @override
+  PermissionModel build() => PermissionModel();
 
   @override
   Future<void> initMicrophonePermission() async {

@@ -98,8 +98,8 @@ void main() {
         ).thenThrow(Exception('Error requesting permission: denied'));
 
         // act & assert
-        expect(
-          () => viewModel.initMicrophonePermission(),
+        await expectLater(
+          viewModel.initMicrophonePermission(),
           throwsA(isA<Exception>()),
         );
       });

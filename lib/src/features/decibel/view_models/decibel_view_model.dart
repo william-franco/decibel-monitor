@@ -6,8 +6,6 @@ import 'package:flutter/foundation.dart';
 typedef _ViewModel = StateManagement<DecibelModel>;
 
 abstract interface class DecibelViewModel extends _ViewModel {
-  DecibelViewModel(super.initialState);
-
   Future<void> startListening();
   Future<void> stopListening();
 }
@@ -15,8 +13,10 @@ abstract interface class DecibelViewModel extends _ViewModel {
 class DecibelViewModelImpl extends _ViewModel implements DecibelViewModel {
   final DecibelRepository decibelRepository;
 
-  DecibelViewModelImpl({required this.decibelRepository})
-    : super(DecibelModel());
+  DecibelViewModelImpl({required this.decibelRepository});
+
+  @override
+  DecibelModel build() => DecibelModel();
 
   @override
   Future<void> startListening() async {
