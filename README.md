@@ -1,12 +1,26 @@
 # Decibel Monitor
 
-Ambient noise level monitor with charts.
+Measures ambient noise levels and visualizes them with charts over time.
+
+Audio samples flow from the platform into the app and drive live decibel readouts.
+
+Modular structure separates monitoring logic, settings, and shared UI components.
+
+## Structure
+
+```mermaid
+flowchart LR
+  MonitorView --> MonitorViewModel
+  MonitorViewModel --> AudioRepository
+  AudioRepository --> PlatformMicStream
+  MonitorViewModel --> ChartWidget
+```
 
 ## Stack
 
 | Technology | Version |
 |------------|---------|
-| Dart SDK | ^3.13.2 |
+| Dart SDK | ^3.13.3 |
 | cupertino_icons | ^1.0.8 |
 | fl_chart | ^1.2.0 |
 | get_it | ^9.2.1 |
