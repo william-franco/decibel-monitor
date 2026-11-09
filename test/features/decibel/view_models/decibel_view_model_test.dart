@@ -161,28 +161,23 @@ void main() {
         },
       );
 
-      test(
-        'should complete without throwing when repository.startListening throws',
-        () async {
-          // arrange
-          when(mockDecibelRepository.setUpdateHandler(any)).thenAnswer((_) {});
-          when(
-            mockDecibelRepository.startListening(),
-          ).thenThrow(Exception('Microphone unavailable'));
+      test('should complete without throwing when repository.startListening throws', () async {
+        // arrange
+        when(mockDecibelRepository.setUpdateHandler(any)).thenAnswer((_) {});
+        when(mockDecibelRepository.startListening())
+            .thenThrow(Exception('Microphone unavailable'));
 
-          // act & assert — ViewModel catches and logs via debugPrint
-          await expectLater(viewModel.startListening(), completes);
-        },
-      );
+        // act & assert — ViewModel catches and logs via debugPrint
+        await expectLater(viewModel.startListening(), completes);
+      });
 
       test(
         'should not change state when repository.startListening throws',
         () async {
           // arrange
           when(mockDecibelRepository.setUpdateHandler(any)).thenAnswer((_) {});
-          when(
-            mockDecibelRepository.startListening(),
-          ).thenThrow(Exception('Microphone unavailable'));
+          when(mockDecibelRepository.startListening())
+              .thenThrow(Exception('Microphone unavailable'));
 
           // act
           await viewModel.startListening();
@@ -216,9 +211,8 @@ void main() {
         'should complete without throwing when repository.stopListening throws',
         () async {
           // arrange
-          when(
-            mockDecibelRepository.stopListening(),
-          ).thenThrow(Exception('Already stopped'));
+          when(mockDecibelRepository.stopListening())
+              .thenThrow(Exception('Already stopped'));
 
           // act & assert — ViewModel catches and logs via debugPrint
           await expectLater(viewModel.stopListening(), completes);

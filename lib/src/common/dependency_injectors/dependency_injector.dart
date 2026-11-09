@@ -1,4 +1,5 @@
 import 'package:decibel_monitor/src/common/services/storage_service.dart';
+import 'package:decibel_monitor/src/common/services/url_launcher_service.dart';
 import 'package:decibel_monitor/src/features/decibel/view_models/decibel_view_model.dart';
 import 'package:decibel_monitor/src/features/decibel/repositories/decibel_repository.dart';
 import 'package:decibel_monitor/src/features/permission/view_models/permission_view_model.dart';
@@ -10,6 +11,9 @@ import 'package:get_it/get_it.dart';
 final locator = GetIt.instance;
 
 void dependencyInjector() {
+  locator.registerLazySingleton<UrlLauncherService>(
+    () => UrlLauncherServiceImpl(),
+  );
   _startStorageService();
   _startFeaturePermission();
   _startFeatureDecibel();
@@ -42,7 +46,10 @@ void _startFeatureDecibel() {
 
 void _startFeatureSetting() {
   locator.registerCachedFactory<SettingRepository>(
-    () => SettingRepositoryImpl(storageService: locator<StorageService>()),
+    () => SettingRepositoryImpl(
+      storageService: locator<StorageService>(),
+      urlLauncherService: locator<UrlLauncherService>(),
+    ),
   );
   locator.registerLazySingleton<SettingViewModel>(
     () => SettingViewModelImpl(settingRepository: locator<SettingRepository>()),
