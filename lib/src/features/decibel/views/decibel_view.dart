@@ -3,7 +3,7 @@ import 'package:decibel_monitor/src/features/decibel/models/decibel_model.dart';
 import 'package:decibel_monitor/src/features/decibel/view_models/decibel_view_model.dart';
 import 'package:decibel_monitor/src/features/settings/routes/setting_routes.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 
 class DecibelView extends StatefulWidget {

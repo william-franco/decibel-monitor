@@ -2,7 +2,7 @@ import 'package:decibel_monitor/src/common/state_management/state_management.dar
 import 'package:decibel_monitor/src/features/decibel/routes/decibel_routes.dart';
 import 'package:decibel_monitor/src/features/permission/models/permission_model.dart';
 import 'package:decibel_monitor/src/features/permission/view_models/permission_view_model.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 
 class PermissionView extends StatefulWidget {

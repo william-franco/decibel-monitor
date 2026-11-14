@@ -3,7 +3,7 @@ import 'package:decibel_monitor/src/common/routes/routes.dart';
 import 'package:decibel_monitor/src/common/state_management/state_management.dart';
 import 'package:decibel_monitor/src/features/settings/models/setting_model.dart';
 import 'package:decibel_monitor/src/features/settings/view_models/setting_view_model.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
